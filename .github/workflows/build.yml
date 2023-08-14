@@ -55,6 +55,8 @@ jobs:
       shell: bash
       run: |
         cd build && ninja
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
     - name: Running C++ Tests
       shell: bash
       run: |
