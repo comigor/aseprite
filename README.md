@@ -87,6 +87,7 @@ Thanks to [third-party open source projects](docs/LICENSES.md), to
 people who have contributed ideas, patches, bugs report, feature
 requests, donations, and help me to develop Aseprite.
 
+
 ## License
 
 This program is distributed under three different licenses:
