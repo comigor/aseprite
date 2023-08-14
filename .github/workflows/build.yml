@@ -55,8 +55,26 @@ jobs:
       shell: bash
       run: |
         cd build && ninja
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ github.ref }}-prelease
+        release_name: Release ${{ github.ref }} (prelease)
+        body: |
+          Test upload-to-github-release works with `actions/create-release`
+        draft: false
+        prerelease: true
+    - uses: xresloader/upload-to-github-release@main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: "bin/aseprite.exe;*.exe;**/**.exe"
+        release_id: "${{ steps.create_release.outputs.id }}, ${{ matrix.build_type }}, ${{ runner.os }}"
+        overwrite: true
+        verbose: true
     - name: Running C++ Tests
       shell: bash
       run: |
